@@ -16,11 +16,11 @@ enum Question{
     var title: String{
         switch self{
         case .one:
-            return "Is sky blue?"
+            return "Небо голубое?"
         case .two:
-            return "Are u sleeping?"
+            return "Трава зеленая?"
         case .three:
-            return "Are u blond?"
+            return "Вы учитесь на python?"
         case .four:
             return "5*5=25?"
         case .five:
@@ -33,7 +33,7 @@ enum Question{
         case .one:
             return "yes"
         case .two:
-            return "no"
+            return "yes"
         case .three:
             return "no"
         case .four:

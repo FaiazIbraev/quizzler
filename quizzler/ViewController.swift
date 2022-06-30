@@ -35,9 +35,11 @@ class ViewController: UIViewController {
         initialQues()
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destinationVC = segue.destination as! ResultViewController
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        restart()
+    }
+    
     
     @IBAction func answerTapped(_ sender: UIButton) {
         switch sender.tag{
@@ -50,12 +52,24 @@ class ViewController: UIViewController {
         }
         
         if questions.count - 1 == counter{
-            print(userAnswers)
+            navigationItem.title = "Quiz"
+            let vc = storyboard?.instantiateViewController(withIdentifier: "ResultViewController") as!ResultViewController
+            vc.result = ("\(checkCorrectAnswers ())","\(counter + 1)")
+            navigationController?.pushViewController(vc, animated: true)
         }else {
             counter += 1
             initialQues()
-            print(userAnswers)
         }
+    }
+    
+    func checkCorrectAnswers () -> String{
+        var correctAnswers: Int = 0
+        for i in 0 ..< questions.count{
+            if userAnswers [i] == questions[i].answer{
+                correctAnswers += 1
+            }
+        }
+        return "\(correctAnswers)"
     }
     
     func initialQues(){
@@ -100,10 +114,14 @@ class ViewController: UIViewController {
         view.layer.masksToBounds = true
     }
     
-    func result (){
-        if userAnswers == rightAnswers{
-            print("\(userAnswers)/ \(counter)")
-        }
+    func restart (){
+        userAnswers = []
+        counter = 0
+        view2.backgroundColor = .white
+        view3.backgroundColor = .white
+        view4.backgroundColor = .white
+        view5.backgroundColor = .white
+        mainLabel.text = questions[counter].title
     }
     
 }
